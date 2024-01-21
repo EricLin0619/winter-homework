@@ -1,8 +1,8 @@
-import '../styles/globals.css';
-import '@rainbow-me/rainbowkit/styles.css';
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import type { AppProps } from 'next/app';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+import "../styles/globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
+import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import type { AppProps } from "next/app";
+import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
   arbitrum,
   goerli,
@@ -11,8 +11,10 @@ import {
   polygon,
   base,
   zora,
-} from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
+} from "wagmi/chains";
+import WagmiProvider from "../src/wagmiProvider";
+import { publicProvider } from "wagmi/providers/public";
+import Navbar from "./components/navbar";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
@@ -22,14 +24,14 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
     arbitrum,
     base,
     zora,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [goerli] : []),
   ],
   [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'RainbowKit App',
-  projectId: 'YOUR_PROJECT_ID',
+  appName: "RainbowKit App",
+  projectId: "YOUR_PROJECT_ID",
   chains,
 });
 
@@ -42,11 +44,12 @@ const wagmiConfig = createConfig({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
+    <main className="mx-10 mt-6">
+      <WagmiProvider>
+        <Navbar />
         <Component {...pageProps} />
-      </RainbowKitProvider>
-    </WagmiConfig>
+      </WagmiProvider>
+    </main>
   );
 }
 
