@@ -25,7 +25,8 @@ import { particleWallet } from "@particle-network/rainbowkit-ext";
 
 const projectId = "d9711726-29d4-4693-b8b3-ba7d97a6ad43"
 const clientKey = "cBiUsHpenqGTyxX9vcwcZv7tPPk7KBlyM7cBynV5"
-const appId = "1"
+const appId = "a0d294a7-1650-4e86-aab3-8f2ad5240628"
+const walletConnectId = "055f7ae519cd5ad3a4857375ef773ec1"
 
 new ParticleNetwork({
   projectId: projectId as string,
@@ -42,7 +43,6 @@ const particleWallets = [
   particleWallet({ chains, authType: "google" }),
   particleWallet({ chains, authType: "facebook" }),
   particleWallet({ chains, authType: "apple" }),
-  particleWallet({ chains }),
 ];
 
 const popularWallets = {
@@ -52,12 +52,12 @@ const popularWallets = {
     injectedWallet({ chains }),
     rainbowWallet({
       chains,
-      projectId: projectId as string,
+      projectId: walletConnectId as string,
     }),
     coinbaseWallet({ appName: "RainbowKit demo", chains }),
     metaMaskWallet({
       chains,
-      projectId: projectId as string,
+      projectId: walletConnectId as string,
     }),
   ],
 };
