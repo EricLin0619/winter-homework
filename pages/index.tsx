@@ -1,9 +1,24 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Navbar from "./components/navbar";
+import NftCard from "./components/nftCard";
+import { walletEntryPlugin } from "@particle-network/wallet";
+import { useEffect } from "react";
+import { useAccount } from "wagmi";
 
 const Home: NextPage = () => {
+  const projectId = "d9711726-29d4-4693-b8b3-ba7d97a6ad43";
+  const clientKey = "cBiUsHpenqGTyxX9vcwcZv7tPPk7KBlyM7cBynV5";
+  const appId = "a0d294a7-1650-4e86-aab3-8f2ad5240628";
+  const { isConnected } = useAccount();
+
+  // walletEntryPlugin.init({
+  //   projectId,
+  //   clientKey,
+  //   appId,
+  // });
+
+  walletEntryPlugin.walletEntryCreate();
+
   return (
     <div>
       <Head>
@@ -14,6 +29,13 @@ const Home: NextPage = () => {
         />
         <link href="/favicon.ico" rel="icon" />
       </Head>
+      <div className="mt-8 grid grid-cols-3 ">
+        <NftCard />
+        <NftCard />
+        <NftCard />
+        <NftCard />
+        <NftCard />
+      </div>
     </div>
   );
 };
