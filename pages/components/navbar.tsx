@@ -4,7 +4,7 @@ function Navbar() {
   return (
     <div className="navbar bg-white text-black rounded-lg shadow-xl">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl">NFT Market</a>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
