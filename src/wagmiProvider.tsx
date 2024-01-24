@@ -32,6 +32,9 @@ new ParticleNetwork({
   projectId: projectId as string,
   clientKey: clientKey as string,
   appId: appId as string,
+  wallet: {
+    displayWalletEntry: true,
+  }
 });
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
