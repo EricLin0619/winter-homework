@@ -3,17 +3,17 @@ import BeanABI from "../abi/BeanABI.json"
 
 const SepoliaChainId = 11155111
 
-const BeanAddress = "0x6A42F1082a3Ec9c5C00CC945bf0Fb6A12ef0c946" 
+const BeanAddress = "0x30126127819966e599E2d489D0bCb6a8797F7bF8" 
 
-export async function mint () {
+export async function mint (ownerAddress: string, tokenId: number) {
     const config = await prepareWriteContract({
         address: BeanAddress, 
         abi: BeanABI,
         chainId: SepoliaChainId,
         functionName: 'mint',
         args: [
-          "0x5395B429e8c448aBA48Ba5c2527Fba8F3BfB0D3D",
-          1
+          ownerAddress,
+          tokenId
         ],
       })
     await writeContract(config)

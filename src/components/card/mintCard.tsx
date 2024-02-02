@@ -1,5 +1,7 @@
-import { getBeanMetaData } from "../../service/nftService";
+import { getBeanMetaData, getUserNfts } from "../../service/nftService";
 import { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
+import { mint } from "../../service/mintService";
 
 function MintCard() {
   const [tokenId, setTokenId] = useState(NaN);
@@ -7,9 +9,22 @@ function MintCard() {
     "https://i.seadn.io/s/raw/files/d0541b6eb9d935724e3118b62d145dc9.gif?auto=format&dpr=1&w=1000"
   );
   const [loading, setLoading] = useState(false);
+  const { isConnected, address } = useAccount();
 
   useEffect(() => {
-    setLoading(true);
+    if (isConnected) {
+      console.log(address);
+      // @ts-ignore
+      getUserNfts(address).then((res) => {
+        console.log(res);
+      });
+    }
+  });
+
+  useEffect(() => {
+    if (!isNaN(tokenId)) {
+      setLoading(true);
+    }
     if (isNaN(tokenId)) {
       setImageUrl(
         "https://i.seadn.io/s/raw/files/d0541b6eb9d935724e3118b62d145dc9.gif?auto=format&dpr=1&w=1000"
@@ -21,7 +36,7 @@ function MintCard() {
     }
     const timer = setTimeout(() => {
       setLoading(false);
-    },1500)
+    }, 1500);
   }, [tokenId]);
 
   return (
@@ -34,7 +49,7 @@ function MintCard() {
         <p>Input the token id you want.</p>
         {loading ? (
           <div className="w-40 h-40 mx-auto flex mb-8">
-            <span className="loading loading-ring loading-lg mx-auto items-center"></span>
+            <span className="loading loading-ring loading-lg mx-auto items-center text-blue-700 font-bold"></span>
           </div>
         ) : (
           <img
@@ -51,7 +66,14 @@ function MintCard() {
             value={tokenId}
             onChange={(e) => setTokenId(parseInt(e.target.value))}
           />
-          <button className="btn btn-primary w-full cursor-pointer">
+
+          <button
+            className="btn btn-primary w-full cursor-pointer"
+            onClick={() => {
+              // @ts-ignore
+              mint(address, tokenId);
+            }}
+          >
             MINT
           </button>
         </div>

@@ -25,12 +25,8 @@ const Home: NextPage = () => {
         />
         <link href="/favicon.ico" rel="icon" />
       </Head>
-      <div className="mt-8 grid grid-cols-3 ">
-        <NftCard />
-        <NftCard />
-        <NftCard />
-        <NftCard />
-        <NftCard />
+      <div>
+        
       </div>
     </div>
   );

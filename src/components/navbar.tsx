@@ -1,6 +1,6 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import Mint from "./button/mintButton";
 import { useRouter } from "next/router";
+import FlashText from "./flashText";
 
 function Navbar() {
   const router = useRouter();
@@ -29,13 +29,14 @@ function Navbar() {
           <li onClick={()=>{router.push("/mint")}}>
             <a>MINT</a>
           </li>
-          <li>
+          <li onClick={()=>{router.push("/sales")}}>
             <a>SALES</a>
           </li>
         </ul>
       </div>
-      <div className="flex-1" onClick={()=>{router.push("/")}}>
-        <a className="btn btn-ghost text-xl">NFT Market</a>
+      <div className="flex-1" >
+        <FlashText />
+        {/* <a className="btn btn-ghost text-xl">NFT Market</a> */}
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
