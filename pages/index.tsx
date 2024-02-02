@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import NftCard from "./components/nftCard";
+import NftCard from "../src/components/nftCard";
 import { walletEntryPlugin } from "@particle-network/wallet";
 
 const projectId = "d9711726-29d4-4693-b8b3-ba7d97a6ad43";
@@ -25,12 +25,8 @@ const Home: NextPage = () => {
         />
         <link href="/favicon.ico" rel="icon" />
       </Head>
-      <div className="mt-8 grid grid-cols-3 ">
-        <NftCard />
-        <NftCard />
-        <NftCard />
-        <NftCard />
-        <NftCard />
+      <div>
+        
       </div>
     </div>
   );
