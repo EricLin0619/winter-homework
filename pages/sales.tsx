@@ -22,6 +22,7 @@ function Page() {
             tokenId={nft.tokenId}
             imageUrl={nft.imageUrl}
             name={nft.name}
+            key = {nft.tokenId}
           />
         );
       })}

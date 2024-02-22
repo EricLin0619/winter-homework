@@ -2,6 +2,8 @@ import { getBeanMetaData, getUserNfts } from "../../service/nftService";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { mint } from "../../service/mintService";
+import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+
 
 function MintCard() {
   const [tokenId, setTokenId] = useState(NaN);
@@ -39,13 +41,17 @@ function MintCard() {
     }, 1500);
   }, [tokenId]);
 
+  function setRandomTokenId() {
+    setTokenId(Math.floor(Math.random() * 19951));
+  }
+
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl">
       <figure>
         <img src="/beanz-types-U536IATcwzVjQAsZ.png" alt="Album" />
       </figure>
       <div className="card-body bg-white text-black">
-        <h2 className="card-title">Mint your Azuki Bean !!!</h2>
+        <h2 className="card-title">Mint your Azuki Bean</h2>
         <p>Input the token id you want.</p>
         {loading ? (
           <div className="w-40 h-40 mx-auto flex mb-8">
@@ -59,13 +65,16 @@ function MintCard() {
           />
         )}
         <div className="card-actions justify-end">
-          <input
-            type="number"
-            placeholder="token id"
-            className="input input-bordered input-success w-full max-w-xs bg-white"
-            value={tokenId}
-            onChange={(e) => setTokenId(parseInt(e.target.value))}
-          />
+          <div className="flex items-center">
+            <input
+              type="number"
+              placeholder="token id"
+              className="input input-bordered input-success w-full max-w-xs bg-white"
+              value={tokenId}
+              onChange={(e) => setTokenId(parseInt(e.target.value))}
+            />
+            <GiPerspectiveDiceSixFacesRandom className="w-12 h-12 cursor-pointer" onClick={setRandomTokenId}/>
+          </div>
 
           <button
             className="btn btn-primary w-full cursor-pointer"
