@@ -1,22 +1,16 @@
 import { BiIdCard } from "react-icons/bi";
-import { useRouter } from "next/router";
 import { useAccount } from "wagmi";
 import { shortenHexString } from "../utils";
 import { setApproval, createOrder } from "../service/market";
 
 export default function NftCard(props: any) {
-  function printNftInformation() {
-    console.log("contract address: ", props.contractAddress);
-    console.log("token id: ", props.tokenId);
-  }
   const handleSaleClick = async () => {
     if (document) {
       (document.getElementById(props.imageUrl) as HTMLFormElement).showModal();
     }
   };
 
-  const router = useRouter();
-  const { isConnected, address } = useAccount();
+  const { address } = useAccount();
   
 
   return (
@@ -58,7 +52,7 @@ export default function NftCard(props: any) {
           <form method="dialog" className="modal-backdrop">
             <button className="btn btn-success w-full mt-4" onClick={()=>{
               setApproval(props.tokenId, props.contractAddress)
-              createOrder(props.contractAddress, props.tokenId, 30000, address as `0x${string}`)
+              createOrder(props.contractAddress, props.tokenId, 30000, address as `0x${string}`, props.imageUrl, props.name)
             }}>CONFIRM</button>
           </form>
         </div>

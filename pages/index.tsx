@@ -2,8 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { walletEntryPlugin } from "@particle-network/wallet";
 import SalesCard from "../src/components/card/salesCard";
-import TestButton from "../src/components/button/testButton";
-import {getBlockNumber} from "../src/service/market"
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const projectId = "d9711726-29d4-4693-b8b3-ba7d97a6ad43";
 const clientKey = "cBiUsHpenqGTyxX9vcwcZv7tPPk7KBlyM7cBynV5";
@@ -14,9 +14,24 @@ walletEntryPlugin.init({
   appId,
 });
 walletEntryPlugin.walletEntryCreate();
-getBlockNumber()
 
 const Home: NextPage = () => {
+  const [orders, setOrders] = useState([
+    {
+      contractAddress: "",
+      tokenId: 0,
+      imageUrl: "",
+      price: 0,
+      seller_address: "",
+      name: "",
+    },
+  ]);
+  useEffect(() => {
+    axios.get("http://localhost:3001/order").then((res) => {
+      setOrders(res.data);
+    });
+  }, [orders]);
+
   return (
     <div>
       <Head>
@@ -28,12 +43,18 @@ const Home: NextPage = () => {
         <link href="/bean.png" rel="icon" />
       </Head>
       <div className="mt-8 grid grid-cols-4">
-        <SalesCard />
-        <SalesCard />
-        <SalesCard />
-        <SalesCard />
-        <SalesCard />
-        <SalesCard />
+        {orders.map((order, index) => {
+          return (
+            <SalesCard
+              contractAddress={order.contractAddress}
+              tokenId={order.tokenId}
+              price={order.price}
+              sellerAddress={order.seller_address}
+              imageUrl={order.imageUrl}
+              tokenName={order.name}
+            />
+          );
+        })}
       </div>
     </div>
   );
