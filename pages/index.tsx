@@ -26,6 +26,7 @@ const Home: NextPage = () => {
       name: "",
     },
   ]);
+
   useEffect(() => {
     axios.get("http://localhost:3001/order").then((res) => {
       setOrders(res.data);
@@ -52,6 +53,7 @@ const Home: NextPage = () => {
               sellerAddress={order.seller_address}
               imageUrl={order.imageUrl}
               tokenName={order.name}
+              myKey={index.toString()}
             />
           );
         })}

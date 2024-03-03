@@ -25,7 +25,8 @@ export async function setApproval(_tokenId: number, _ERC721Address: string) {
     functionName: "approve",
     args: ["0x3475e2495bBF6a383569cc34381e8e5E55285C41", _tokenId],
   });
-  await writeContract(config);
+  const result = await writeContract(config);
+  return result.hash
 }
 
 export async function createOrder(
@@ -42,6 +43,8 @@ export async function createOrder(
     tokenId: parseInt(_tokenId),
     price: _price,
     sellerAddress: _ownerAddress,
+    imageUrl: _imgaeUrl,
+    name: _name,
   });
   console.log(data)
 }

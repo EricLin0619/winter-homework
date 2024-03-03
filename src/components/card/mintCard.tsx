@@ -1,27 +1,25 @@
 import { getBeanMetaData, getUserNfts } from "../../service/nftService";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { mint } from "../../service/mintService";
+import { mint } from "../../service/nftContractService";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+import { Network, Alchemy } from "alchemy-sdk";
+
+const AlchemySettings = {
+  apiKey: "aBu-p16T4anm-L9FhpHw1NMh1ZdP_k98", // Replace with your Alchemy API Key.
+  network: Network.ETH_SEPOLIA, // Replace with your network.
+};
+const alchemy = new Alchemy(AlchemySettings);
 
 
-function MintCard() {
+function MintCard(props: any) {
   const [tokenId, setTokenId] = useState(NaN);
   const [imageUrl, setImageUrl] = useState(
     "https://i.seadn.io/s/raw/files/d0541b6eb9d935724e3118b62d145dc9.gif?auto=format&dpr=1&w=1000"
   );
   const [loading, setLoading] = useState(false);
-  const { isConnected, address } = useAccount();
-
-  useEffect(() => {
-    if (isConnected) {
-      console.log(address);
-      // @ts-ignore
-      getUserNfts(address).then((res) => {
-        console.log(res);
-      });
-    }
-  });
+  const [txHash, setTxHash] = useState("");
+  const { address } = useAccount();
 
   useEffect(() => {
     if (!isNaN(tokenId)) {
@@ -36,7 +34,7 @@ function MintCard() {
         setImageUrl(res);
       });
     }
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       setLoading(false);
     }, 1500);
   }, [tokenId]);
@@ -44,6 +42,13 @@ function MintCard() {
   function setRandomTokenId() {
     setTokenId(Math.floor(Math.random() * 19951));
   }
+
+  useEffect(() => {
+    console.log("txHash: ",txHash)
+    if (txHash) {
+      alchemy.transact.waitForTransaction(txHash)
+    }
+  },[txHash])
 
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl">
@@ -78,13 +83,15 @@ function MintCard() {
 
           <button
             className="btn btn-primary w-full cursor-pointer"
-            onClick={() => {
+            onClick={async () => {
               // @ts-ignore
-              mint(address, tokenId);
+              const txResult = await mint(address, tokenId);
+              setTxHash(txResult.hash)
             }}
           >
             MINT
           </button>
+          {/* <MintButton ownerAddress={address as `0x`} tokenId={tokenId} /> */}
         </div>
       </div>
     </div>

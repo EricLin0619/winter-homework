@@ -1,7 +1,7 @@
 import { BiIdCard } from "react-icons/bi";
 import { shortenHexString } from "../../utils";
 
-export default function NftCard(props: {
+export default function ForSaleCard(props: {
   contractAddress: string,
   tokenId: number,
   imageUrl: string

@@ -1,17 +1,45 @@
 import { BiIdCard } from "react-icons/bi";
 import { useAccount } from "wagmi";
-import { shortenHexString } from "../utils";
-import { setApproval, createOrder } from "../service/market";
+import { shortenHexString } from "../../utils";
+import { setApproval, createOrder } from "../../service/market";
+import { useState, useEffect } from "react";
+import { Network, Alchemy } from "alchemy-sdk";
+
+const AlchemySettings = {
+  apiKey: "aBu-p16T4anm-L9FhpHw1NMh1ZdP_k98", // Replace with your Alchemy API Key.
+  network: Network.ETH_SEPOLIA, // Replace with your network.
+};
+const alchemy = new Alchemy(AlchemySettings);
 
 export default function NftCard(props: any) {
+  // function
   const handleSaleClick = async () => {
     if (document) {
       (document.getElementById(props.imageUrl) as HTMLFormElement).showModal();
     }
   };
 
+  // useState
   const { address } = useAccount();
-  
+  const [txHash, setTxHash] = useState("");
+
+  // useEffect
+  useEffect(() => {
+    if (txHash) {
+      alchemy.transact.waitForTransaction(txHash).then((res) => {
+        if (res?.status === 1) {
+          createOrder(
+            props.contractAddress,
+            props.tokenId,
+            30000,
+            address as `0x${string}`,
+            props.imageUrl,
+            props.name
+          );
+        }
+      });
+    }
+  }, [txHash]);
 
   return (
     <>
@@ -50,10 +78,26 @@ export default function NftCard(props: any) {
             USD
           </label>
           <form method="dialog" className="modal-backdrop">
-            <button className="btn btn-success w-full mt-4" onClick={()=>{
-              setApproval(props.tokenId, props.contractAddress)
-              createOrder(props.contractAddress, props.tokenId, 30000, address as `0x${string}`, props.imageUrl, props.name)
-            }}>CONFIRM</button>
+            <button
+              className="btn btn-success w-full mt-4"
+              onClick={async () => {
+                const txHash = await setApproval(
+                  props.tokenId,
+                  props.contractAddress
+                );
+                setTxHash(txHash);
+                // createOrder(
+                //   props.contractAddress,
+                //   props.tokenId,
+                //   30000,
+                //   address as `0x${string}`,
+                //   props.imageUrl,
+                //   props.name
+                // );
+              }}
+            >
+              CONFIRM
+            </button>
           </form>
         </div>
         <form method="dialog" className="modal-backdrop">
