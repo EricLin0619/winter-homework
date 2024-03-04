@@ -1,16 +1,45 @@
 import { BiIdCard } from "react-icons/bi";
 import { shortenHexString } from "../../utils";
+import { useAccount } from "wagmi";
+import { useState, useEffect } from "react";
+import { buyNft } from "../../service/market";
+import axios from "axios";
+import { Network, Alchemy } from "alchemy-sdk";
+
+const AlchemySettings = {
+  apiKey: "aBu-p16T4anm-L9FhpHw1NMh1ZdP_k98", // Replace with your Alchemy API Key.
+  network: Network.ETH_SEPOLIA, // Replace with your network.
+};
+const alchemy = new Alchemy(AlchemySettings);
 
 export default function NftCard(props: {
-  contractAddress: string,
-  tokenId: number,
-  imageUrl: string
-  price: number,
-  sellerAddress: string,
-  tokenName: string,
-  myKey: string
+  contractAddress: string;
+  tokenId: number;
+  imageUrl: string;
+  price: number;
+  sellerAddress: string;
+  tokenName: string;
+  myKey: string;
 }) {
-  
+  // useState
+  const [txHash, setTxHash] = useState("");
+  const { address } = useAccount();
+
+  //useEffect
+  useEffect(() => {
+    if (txHash) {
+      alchemy.transact.waitForTransaction(txHash).then((res) => {
+        if (res?.status === 1) {
+          axios.delete("http://localhost:3001/order", {
+            data: {
+              contractAddress: props.contractAddress,
+              tokenId: props.tokenId,
+            },
+          });
+        }
+      });
+    }
+  }, [txHash]);
 
   const handleSaleClick = async () => {
     if (document) {
@@ -60,7 +89,19 @@ export default function NftCard(props: {
           </div>
 
           <form method="dialog" className="modal-backdrop">
-            <button className="btn btn-success w-full mt-4">Buy</button>
+            <button
+              className="btn btn-success w-full mt-4"
+              onClick={async () => {
+                const txHash = await buyNft(
+                  props.contractAddress,
+                  props.tokenId,
+                  props.price
+                );
+                setTxHash(txHash);
+              }}
+            >
+              Buy
+            </button>
           </form>
         </div>
         <form method="dialog" className="modal-backdrop">

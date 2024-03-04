@@ -48,3 +48,19 @@ export async function createOrder(
   });
   console.log(data)
 }
+
+export async function buyNft(_contractAddress: string, _tokenId: number, _price: number) {
+  const config = await prepareWriteContract({
+    address: marketContractAddress as `0x${string}`,
+    abi: MarketABI,
+    chainId: SepoliaChainId,
+    functionName: "purchase",
+    value: BigInt(_price),
+    args: [
+      _contractAddress,
+      _tokenId,
+    ],
+  });
+  const result = await writeContract(config);
+  return result.hash
+}

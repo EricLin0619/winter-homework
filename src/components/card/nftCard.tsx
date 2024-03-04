@@ -53,7 +53,7 @@ export default function NftCard(props: any) {
           <div className="absolute left-0 top-0 flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-xl bg-white/50 opacity-0 backdrop-blur-sm transition hover:opacity-100">
             <BiIdCard className="text-black rounded-xl w-10 h-auto" />
             <span className="font-mono text-black font-bold text-xl tracking-widest ntialiased">
-              SALE NFT
+              SELL NFT
             </span>
           </div>
         </div>
@@ -86,14 +86,6 @@ export default function NftCard(props: any) {
                   props.contractAddress
                 );
                 setTxHash(txHash);
-                // createOrder(
-                //   props.contractAddress,
-                //   props.tokenId,
-                //   30000,
-                //   address as `0x${string}`,
-                //   props.imageUrl,
-                //   props.name
-                // );
               }}
             >
               CONFIRM

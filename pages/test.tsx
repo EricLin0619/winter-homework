@@ -1,12 +1,14 @@
 import TransferNftButton from "../src/components/button/transferNftButton";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 
 function Page() {
   
+  const { address: userAddress } = useAccount();
   useEffect(() => {
-    axios.get("http://localhost:3001/order", {params: {address: "0xbB83a6e1AAE3C20930CDC695Ad971d632e578FC1"}}).then((res) => {
-      console.log(res.data);
+    axios.get(`http://localhost:3001/order/${userAddress}`).then((res) => {
+      console.log(res.data)
     })
   })
   return (

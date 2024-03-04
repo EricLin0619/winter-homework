@@ -7,7 +7,7 @@ import axios from "axios";
 
 function Page() {
   // useState
-  const { address } = useAccount();
+  const { address: userAddress } = useAccount();
   const [nfts, setNfts] = useState([{}]);
   const [isForSaleContract, setIsForSaleContract] = useState({});
   const [isForSaleTokenId, setIsForSaleTokenId] = useState({});
@@ -26,7 +26,8 @@ function Page() {
   async function getNftData() {
     let forSaleContract = {}
     let forSaleTokenId = {}
-    const res = await axios.get("http://localhost:3001/order", { params: { address: address } })
+    const res = await axios.get(`http://localhost:3001/order/${userAddress}`)
+    console.log(res.data)
     setForSaleNfts(res.data);
     res.data.forEach((item: any) => {
       // @ts-ignore
@@ -37,7 +38,7 @@ function Page() {
     setIsForSaleContract(forSaleContract);
     setIsForSaleTokenId(forSaleTokenId);
 
-    const data = await getUserNfts(address as `0x`);
+    const data = await getUserNfts(userAddress as `0x`);
     setNfts(data);
   }
 
@@ -47,18 +48,11 @@ function Page() {
 
   return (
     <div className="mt-8">
-      <p className="text-3xl text-black font-bold">Your NFTs</p>
+      <div className="divider divider-start text-black ml-5 text-2xl font-bold">Your NFTs</div>
       <div className="grid grid-cols-4">
         {nfts.map((nft: any) => {
           // @ts-ignore
           if (isForSaleContract[nft.contractAddress] && isForSaleTokenId[nft.tokenId]) {
-            console.log(
-              "contract address: ",
-              nft.contractAddress,
-              "tokenId: ",
-              nft.tokenId,
-              "is for Sale. Skip it."
-            );
             return null;
           } else {
             return (
@@ -73,7 +67,7 @@ function Page() {
           }
         })}
       </div>
-      <p className="text-3xl text-black font-bold">For Sale</p>
+      <div className="divider divider-start text-black ml-5 text-2xl font-bold">For Sale</div>
       <div className="grid grid-cols-4">
         {forSaleNfts.map((nft: any, index) => {
           return (
@@ -82,7 +76,7 @@ function Page() {
               tokenId={nft.tokenId}
               imageUrl={nft.imageUrl}
               price={nft.price}
-              sellerAddress={nft.Saleer_address}
+              sellerAddress={nft.seller_address}
               tokenName={nft.name}
               myKey={index.toString()}
             />

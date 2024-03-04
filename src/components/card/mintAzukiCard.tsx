@@ -12,7 +12,7 @@ const AlchemySettings = {
 const alchemy = new Alchemy(AlchemySettings);
 
 
-function MintCard(props: any) {
+function MintAzukiCard(props: any) {
   const [tokenId, setTokenId] = useState(NaN);
   const [imageUrl, setImageUrl] = useState(
     "https://i.seadn.io/s/raw/files/d0541b6eb9d935724e3118b62d145dc9.gif?auto=format&dpr=1&w=1000"
@@ -53,10 +53,10 @@ function MintCard(props: any) {
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl">
       <figure>
-        <img src="/beanz-types-U536IATcwzVjQAsZ.png" alt="Album" />
+        <img src="/Azuki.jpg" alt="Album" />
       </figure>
       <div className="card-body bg-white text-black">
-        <h2 className="card-title">Mint your Azuki Bean</h2>
+        <h2 className="card-title">Mint your Azuki</h2>
         <p>Input the token id you want.</p>
         {loading ? (
           <div className="w-40 h-40 mx-auto flex mb-8">
@@ -98,4 +98,4 @@ function MintCard(props: any) {
   );
 }
 
-export default MintCard;
+export default MintAzukiCard;
