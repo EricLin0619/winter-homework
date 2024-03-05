@@ -30,6 +30,5 @@ export async function getUserNfts(userAddress: string) {
       name: response.name,
     });
   }
-  console.log(nfts);
   return nfts;
 }

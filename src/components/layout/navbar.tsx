@@ -1,6 +1,6 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useRouter } from "next/router";
-import FlashText from "./flashText";
+import FlashText from "../others/flashText";
 
 function Navbar() {
   const router = useRouter();
@@ -26,11 +26,14 @@ function Navbar() {
           tabIndex={0}
           className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-box w-52 mt-5"
         >
-          <li onClick={()=>{router.push("/mint")}}>
-            <a>MINT</a>
+          <li onClick={()=>{router.push("/mintBean")}}>
+            <a>MINT Bean</a>
           </li>
           <li onClick={()=>{router.push("/sales")}}>
             <a>SALES</a>
+          </li>
+          <li onClick={()=>{router.push("/test")}}>
+            <a>TEST</a>
           </li>
         </ul>
       </div>

@@ -16,5 +16,21 @@ export async function mint (ownerAddress: string, tokenId: number) {
           tokenId
         ],
       })
-    await writeContract(config)
+    const result = await writeContract(config)
+    return result
+}
+
+export async function transferNftToOriginal(_contractAddress: string, _ownerAddress: string, _toAddress: string, _tokenId: number) {
+  const config = await prepareWriteContract({
+    address: _contractAddress as `0x${string}`, 
+    abi: BeanABI,
+    chainId: SepoliaChainId,
+    functionName: 'transferFrom',
+    args: [
+      _ownerAddress,
+      _toAddress,
+      _tokenId
+    ],
+  })
+await writeContract(config)
 }
