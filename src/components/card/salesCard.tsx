@@ -57,7 +57,8 @@ export default function NftCard(props: {
             alt="image description"
           />
           <div className="absolute left-0 top-0 flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-xl bg-white/50 opacity-0 backdrop-blur-sm transition hover:opacity-100">
-            <BiIdCard className="text-black rounded-xl w-10 h-auto" />
+            {/* <BiIdCard className="text-black rounded-xl w-10 h-auto" /> */}
+            <img src="/nft2.png" className="w-10 h-10" />
             <span className="font-mono text-black font-bold text-xl tracking-widest ntialiased">
               BUY NFT
             </span>
@@ -85,7 +86,7 @@ export default function NftCard(props: {
           </div>
           <div className="flex">
             <p>Price</p>
-            <p className="ml-auto">{props.price}</p>
+            <p className="ml-auto">{props.price} <span className="font-bold">ETH</span></p>
           </div>
 
           <form method="dialog" className="modal-backdrop">

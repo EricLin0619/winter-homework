@@ -22,6 +22,7 @@ export default function NftCard(props: any) {
   // useState
   const { address } = useAccount();
   const [txHash, setTxHash] = useState("");
+  const [price, setPrice] = useState(0);
 
   // useEffect
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function NftCard(props: any) {
           createOrder(
             props.contractAddress,
             props.tokenId,
-            30000,
+            price,
             address as `0x${string}`,
             props.imageUrl,
             props.name
@@ -74,8 +75,9 @@ export default function NftCard(props: any) {
               type="number"
               className="grow bg-white"
               placeholder="price you want to sell"
+              onChange={(e) => setPrice(Number(e.target.value))}
             />
-            USD
+            ETH
           </label>
           <form method="dialog" className="modal-backdrop">
             <button

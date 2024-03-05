@@ -1,3 +1,7 @@
+/**
+ *Submitted for verification at Etherscan.io on 2024-03-05
+*/
+
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity >=0.7.0 <0.9.0;
@@ -12,15 +16,13 @@ interface ERC721 {
     function approve(address to, uint256 tokenId) external;
 }
 
-contract Test {
+contract MarketPlace {
     event CreateOrder(address indexed contractAddress, uint256 indexed tokenId, uint256 indexed price);
     event Purchase(address indexed contractAddress, uint256 indexed tokenId, address indexed purchaser);
-
     struct UserPrice {
         address payable ownerAddress;
         uint256 price;
     }
-
     mapping(address => mapping(uint256 => UserPrice)) public nftOrder;
 
     function createOrder(
@@ -34,16 +36,6 @@ contract Test {
         emit CreateOrder(_contractAddress, _tokenId, _price);
     }
 
-    // function buy(address _contractAddress, uint _price) public payable {
-
-    function pay() public payable {
-        require(msg.value == 5 ether);
-    }
-
-    // }
-    function balance() public view returns (uint256) {
-        return address(this).balance;
-    }
 
     function purchase(address _contractAddress, uint256 _tokenId) public payable {
         uint256 price = nftOrder[ _contractAddress][_tokenId].price;
