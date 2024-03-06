@@ -28,7 +28,7 @@ function TransferNftButton() {
             placeholder="nft contract address"
             className="input input-bordered w-full  bg-white mt-4"
             onChange={(e) => {
-                setNftContract(e.target.value);
+              setNftContract(e.target.value);
             }}
           />
           <input
@@ -47,11 +47,11 @@ function TransferNftButton() {
               setTo(e.target.value);
             }}
           />
-          
+
           <button
             className="btn btn-success w-full mt-4"
             onClick={() => {
-              transferNftToOriginal(nftContract, address as '', to, tokenId);
+              transferNftToOriginal(nftContract, address as "", to, tokenId);
             }}
           >
             transfer

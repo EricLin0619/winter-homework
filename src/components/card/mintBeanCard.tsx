@@ -56,29 +56,29 @@ function MintBeanCard(props: any) {
         <img src="/beanz-types-U536IATcwzVjQAsZ.png" alt="Album" />
       </figure>
       <div className="card-body bg-white text-black">
-        <h2 className="card-title">Mint your Azuki Bean</h2>
-        <p>Input the token id you want.</p>
+        <h2 className="card-title mx-auto">Mint your Azuki Bean</h2>
+        <h2 className="mx-auto">Input the token id you want.</h2>
         {loading ? (
-          <div className="w-40 h-40 mx-auto flex mb-8">
+          <div className="w-40 h-40 mx-auto flex mb-8 mt-auto">
             <span className="loading loading-ring loading-lg mx-auto items-center text-blue-700 font-bold"></span>
           </div>
         ) : (
           <img
             src={imageUrl}
             alt={`${tokenId}`}
-            className="w-40 h-40 rounded-lg mx-auto mb-8"
+            className="w-40 h-40 rounded-lg mx-auto mb-8 mt-auto "
           />
         )}
         <div className="card-actions justify-end">
-          <div className="flex items-center">
+          <div className="flex items-center w-full">
             <input
               type="number"
               placeholder="token id"
-              className="input input-bordered input-success w-full max-w-xs bg-white"
+              className="input input-bordered input-success w-full bg-white"
               value={tokenId}
               onChange={(e) => setTokenId(parseInt(e.target.value))}
             />
-            <GiPerspectiveDiceSixFacesRandom className="w-12 h-12 cursor-pointer" onClick={setRandomTokenId}/>
+            <GiPerspectiveDiceSixFacesRandom className="w-10 h-10 cursor-pointer absolute right-10" onClick={setRandomTokenId}/>
           </div>
 
           <button
@@ -91,6 +91,7 @@ function MintBeanCard(props: any) {
           >
             MINT
           </button>
+          <button className="btn btn-warning w-full">DRAW</button>
           {/* <MintButton ownerAddress={address as `0x`} tokenId={tokenId} /> */}
         </div>
       </div>
