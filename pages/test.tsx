@@ -1,4 +1,5 @@
 import TransferNftButton from "../src/components/button/transferNftButton";
+import ThrowAllNftButton from "../src/components/button/throwAllNft";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
@@ -14,6 +15,7 @@ function Page() {
   return (
     <section className="mt-10">
       <TransferNftButton />
+      <ThrowAllNftButton/>
     </section>
   );
 }

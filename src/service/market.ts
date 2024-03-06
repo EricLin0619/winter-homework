@@ -4,7 +4,7 @@ import MarketABI from "../abi/MarketABI.json";
 import { ethers } from "ethers";
 import axios from "axios";
 
-const marketContractAddress = "0x3475e2495bBF6a383569cc34381e8e5E55285C41";
+const marketContractAddress = "0x4223e8ABc01cDd72a3d9b3ddC617dfD733271e02";
 const SepoliaChainId = 11155111;
 const provider = new ethers.JsonRpcProvider("https://rpc.sepolia.org");
 const signer = new ethers.Wallet(
@@ -37,7 +37,8 @@ export async function createOrder(
   _imgaeUrl: string,
   _name: string
 ) {
-  const data = await marketContract.createOrder(_ERC721Address, _tokenId, _price, _ownerAddress)
+  const priceInWei = BigInt(_price * 10 ** 18)
+  const data = await marketContract.createOrder(_ERC721Address, _tokenId, priceInWei, _ownerAddress)
   await axios.post("http://localhost:3001/order", {
     contractAddress: _ERC721Address,
     tokenId: parseInt(_tokenId),
@@ -55,7 +56,7 @@ export async function buyNft(_contractAddress: string, _tokenId: number, _price:
     abi: MarketABI,
     chainId: SepoliaChainId,
     functionName: "purchase",
-    value: BigInt(_price),
+    value: BigInt(_price * 10 ** 18),
     args: [
       _contractAddress,
       _tokenId,
