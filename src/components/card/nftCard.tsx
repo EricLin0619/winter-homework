@@ -1,4 +1,3 @@
-import { BiIdCard } from "react-icons/bi";
 import { useAccount } from "wagmi";
 import { shortenHexString } from "../../utils";
 import { setApproval, createOrder } from "../../service/market";

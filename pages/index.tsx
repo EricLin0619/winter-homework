@@ -31,7 +31,7 @@ const Home: NextPage = () => {
     axios.get("http://localhost:3001/order").then((res) => {
       setOrders(res.data);
     });
-  }, [orders]);
+  }, []);
 
   return (
     <div>
@@ -54,6 +54,7 @@ const Home: NextPage = () => {
               imageUrl={order.imageUrl}
               tokenName={order.name}
               myKey={index.toString()}
+              key={index}
             />
           );
         })}
