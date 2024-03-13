@@ -1,8 +1,9 @@
 import { getUserNfts } from "../src/service/nftService";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useAccount } from "wagmi";
 import NftCard from "../src/components/card/nftCard";
 import ForSaleCard from "../src/components/card/forSaleCard";
+import Skeleton from "../src/components/others/skeleton";
 import axios from "axios";
 
 function Page() {
@@ -21,6 +22,7 @@ function Page() {
       name: "",
     },
   ]);
+  const [loading, setLoading] = useState(true);
 
   // useEffect
   async function getNftData() {
@@ -42,15 +44,24 @@ function Page() {
     setNfts(data);
   }
 
+
   useEffect(() => {
     getNftData();
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000)
   }, []);
 
   return (
     <div className="mt-8">
       <div className="divider divider-start text-black ml-5 text-2xl font-bold">Your NFTs</div>
       <div className="grid grid-cols-4">
-        {nfts.map((nft: any) => {
+        {loading ? <>
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+        </> : nfts.map((nft: any) => {
           // @ts-ignore
           if (isForSaleContract[nft.contractAddress] && isForSaleTokenId[nft.tokenId]) {
             return null;
@@ -66,6 +77,22 @@ function Page() {
             );
           }
         })}
+        {/* {nfts.map((nft: any) => {
+          // @ts-ignore
+          if (isForSaleContract[nft.contractAddress] && isForSaleTokenId[nft.tokenId]) {
+            return null;
+          } else {
+            return (
+              <NftCard
+                contractAddress={nft.contractAddress}
+                tokenId={nft.tokenId}
+                imageUrl={nft.imageUrl}
+                name={nft.name}
+                key={nft.tokenId}
+              />
+            );
+          }
+        })} */}
       </div>
       <div className="divider divider-start text-black ml-5 text-2xl font-bold">For Sale</div>
       <div className="grid grid-cols-4">
@@ -79,6 +106,7 @@ function Page() {
               sellerAddress={nft.seller_address}
               tokenName={nft.name}
               myKey={index.toString()}
+              key={index}
             />
           );
         })}
