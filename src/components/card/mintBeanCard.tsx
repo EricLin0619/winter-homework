@@ -1,7 +1,7 @@
 import { getBeanMetaData, getUserNfts } from "../../service/nftService";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { mint } from "../../service/nftContractService";
+import { mint, drawNft } from "../../service/nftContractService";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { Network, Alchemy } from "alchemy-sdk";
 
@@ -91,7 +91,7 @@ function MintBeanCard(props: any) {
           >
             MINT
           </button>
-          <button className="btn btn-warning w-full">DRAW</button>
+          <button className="btn btn-warning w-full" onClick={drawNft}>DRAW</button>
           {/* <MintButton ownerAddress={address as `0x`} tokenId={tokenId} /> */}
         </div>
       </div>

@@ -23,7 +23,7 @@ export async function setApproval(_tokenId: number, _ERC721Address: string) {
     abi: BeanABI,
     chainId: SepoliaChainId,
     functionName: "approve",
-    args: ["0x3475e2495bBF6a383569cc34381e8e5E55285C41", _tokenId],
+    args: [marketContractAddress, _tokenId],
   });
   const result = await writeContract(config);
   return result.hash

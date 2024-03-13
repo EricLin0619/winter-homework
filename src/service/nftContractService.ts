@@ -3,7 +3,7 @@ import BeanABI from "../abi/BeanABI.json"
 
 const SepoliaChainId = 11155111
 
-const BeanAddress = "0x30126127819966e599E2d489D0bCb6a8797F7bF8" 
+const BeanAddress = "0x6c8fD7F46261115919E3968a9e42057a9941F413" 
 
 export async function mint (ownerAddress: string, tokenId: number) {
     const config = await prepareWriteContract({
@@ -31,6 +31,16 @@ export async function transferNftToOriginal(_contractAddress: string, _ownerAddr
       _toAddress,
       _tokenId
     ],
+  })
+await writeContract(config)
+}
+
+export async function drawNft() {
+  const config = await prepareWriteContract({
+    address: BeanAddress as `0x${string}`, 
+    abi: BeanABI,
+    chainId: SepoliaChainId,
+    functionName: 'draw',
   })
 await writeContract(config)
 }
