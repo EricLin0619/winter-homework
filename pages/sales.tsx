@@ -106,6 +106,7 @@ function Page() {
               sellerAddress={nft.seller_address}
               tokenName={nft.name}
               myKey={index.toString()}
+              key={index}
             />
           );
         })}
