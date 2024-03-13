@@ -28,7 +28,8 @@ export default function ForSaleCard(props: {
             alt="image description"
           />
           <div className="absolute left-0 top-0 flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-xl bg-white/50 opacity-0 backdrop-blur-sm transition hover:opacity-100">
-            <BiIdCard className="text-black rounded-xl w-10 h-auto" />
+            {/* <BiIdCard className="text-black rounded-xl w-10 h-auto" /> */}
+            <img src="/nft2.png" className="w-10 h-10" />
             <span className="font-mono text-black font-bold text-xl tracking-widest ntialiased">
               VIEW NFT
             </span>
